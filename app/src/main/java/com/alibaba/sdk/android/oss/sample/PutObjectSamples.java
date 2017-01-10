@@ -100,6 +100,8 @@ public class PutObjectSamples {
                 }
             }
         });
+
+        task.waitUntilFinished();
     }
 
     // 直接上传二进制数据，使用阻塞的同步接口

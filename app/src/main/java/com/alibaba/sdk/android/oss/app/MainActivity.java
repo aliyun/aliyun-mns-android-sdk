@@ -2,7 +2,6 @@ package com.alibaba.sdk.android.oss.app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,9 +10,7 @@ import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSCustomSignerCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
-import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.sample.GetObjectSamples;
 import com.alibaba.sdk.android.oss.sample.ManageBucketSamples;
 import com.alibaba.sdk.android.oss.sample.PutObjectSamples;

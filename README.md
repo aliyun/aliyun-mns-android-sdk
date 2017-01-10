@@ -104,9 +104,9 @@ sample目录: [点击查看](https://github.com/aliyun/aliyun-oss-android-sdk/tr
 String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
 
 // 明文设置secret的方式建议只在测试时使用，更多鉴权模式请参考后面的`访问控制`章节
-OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("<accessKeyId>", "<accessKeySecret>");
+OSSCredentialProvider credential = new OSSPlainTextAKSKCredentialProvider("<accessKeyId>", "<accessKeySecret>");
 
-OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider);
+OSS oss = new OSSClient(getApplicationContext(), endpoint, credential);
 ```
 
 ### STEP-2. 上传文件
