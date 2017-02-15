@@ -94,7 +94,12 @@ public class InternalRequestOperation {
                 .hostnameVerifier(new HostnameVerifier() {
                     @Override
                     public boolean verify(String hostname, SSLSession session) {
-                        return HttpsURLConnection.getDefaultHostnameVerifier().verify(endpoint.getHost(), session);
+                        String originHost = endpoint.getHost();
+                        if (!OSSUtils.isCname(originHost)
+                                || OSSUtils.isInCustomCnameExcludeList(originHost, InternalRequestOperation.this.conf.getCustomCnameExcludeList())) {
+                            originHost =  "*." + originHost;
+                        }
+                        return HttpsURLConnection.getDefaultHostnameVerifier().verify(originHost, session);
                     }
                 });
 
