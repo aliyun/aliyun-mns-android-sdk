@@ -530,6 +530,10 @@ public class InternalRequestOperation {
     }
 
     private boolean checkIfHttpdnsAwailable() {
+        if (!this.conf.getEnableHTTPDNS()) {
+            return false;
+        }
+
         if (applicationContext == null) {
             return false;
         }

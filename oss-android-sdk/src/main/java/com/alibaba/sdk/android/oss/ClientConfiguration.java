@@ -28,6 +28,7 @@ public class ClientConfiguration {
     private List<String> customCnameExcludeList = new ArrayList<String>();
     private String proxyHost;
     private int proxyPort;
+    private Boolean enableHTTPDNS = true;
 
     /**
      * 构造新实例。
@@ -153,5 +154,18 @@ public class ClientConfiguration {
 
     public void setProxyPort(int proxyPort) {
         this.proxyPort = proxyPort;
+    }
+
+    public Boolean getEnableHTTPDNS() {
+        return enableHTTPDNS;
+    }
+
+    /**
+     * 是否开启httpdns解析域名
+     *
+     * @param enableHTTPDNS
+     */
+    public void setEnableHTTPDNS(Boolean enableHTTPDNS) {
+        this.enableHTTPDNS = enableHTTPDNS;
     }
 }
