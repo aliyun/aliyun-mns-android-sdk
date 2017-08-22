@@ -1,6 +1,6 @@
 package com.alibaba.sdk.android.common.utils;
 
-import com.alibaba.sdk.android.oss.common.OSSLog;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -100,13 +100,13 @@ public class HttpdnsMini {
         public String call() {
             String chooseServerAddress = SERVER_IP;
             String resolveUrl = "http://" + chooseServerAddress + "/" + ACCOUNT_ID + "/d?host=" + hostName;
-            OSSLog.logD("[httpdnsmini] - buildUrl: " + resolveUrl);
+            Log.d(TAG,"[httpdnsmini] - buildUrl: " + resolveUrl);
             try {
                 HttpURLConnection conn = (HttpURLConnection) new URL(resolveUrl).openConnection();
                 conn.setConnectTimeout(RESOLVE_TIMEOUT_IN_SEC * 1000);
                 conn.setReadTimeout(RESOLVE_TIMEOUT_IN_SEC * 1000);
                 if (conn.getResponseCode() != 200) {
-                    OSSLog.logE("[httpdnsmini] - responseCodeNot 200, but: " + conn.getResponseCode());
+                    Log.e(TAG,"[httpdnsmini] - responseCodeNot 200, but: " + conn.getResponseCode());
                 } else {
                     InputStream in = conn.getInputStream();
                     BufferedReader streamReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
@@ -127,7 +127,8 @@ public class HttpdnsMini {
                         }
                         HostObject hostObject = new HostObject();
                         String ip = (ips == null) ? null : ips.getString(0);
-                        OSSLog.logD("[httpdnsmini] - resolve host:" + host + " ip:" + ip + " ttl:" + ttl);
+                        Log.d(TAG,"[httpdnsmini] - resolve host:" + host + " ip:" + ip + " ttl:" + ttl);
+//                        OSSLog.logD("[httpdnsmini] - resolve host:" + host + " ip:" + ip + " ttl:" + ttl);
                         hostObject.setHostName(host);
                         hostObject.setTtl(ttl);
                         hostObject.setIp(ip);
@@ -139,9 +140,7 @@ public class HttpdnsMini {
                     }
                 }
             } catch (Exception e) {
-                if (OSSLog.isEnableLog()) {
-                    e.printStackTrace();
-                }
+                e.printStackTrace();
             }
             if (!hasRetryed) {
                 hasRetryed = true;
@@ -164,15 +163,13 @@ public class HttpdnsMini {
     public String getIpByHost(String hostName) {
         HostObject host = hostManager.get(hostName);
         if (host == null || host.isExpired()) {
-            OSSLog.logD("[httpdnsmini] - refresh host: " + hostName);
+            Log.d(TAG,"[httpdnsmini] - refresh host: " + hostName);
             Future<String> future = pool.submit(new QueryHostTask(hostName));
             try {
                 String result = future.get();
                 return result;
             } catch (Exception e) {
-                if (OSSLog.isEnableLog()) {
-                    e.printStackTrace();
-                }
+                e.printStackTrace();
             }
             return null;
         }
@@ -182,7 +179,7 @@ public class HttpdnsMini {
     public String getIpByHostAsync(String hostName) {
         HostObject host = hostManager.get(hostName);
         if (host == null || host.isExpired()) {
-            OSSLog.logD("[httpdnsmini] - refresh host: " + hostName);
+            Log.d(TAG,"[httpdnsmini] - refresh host: " + hostName);
             pool.submit(new QueryHostTask(hostName));
         }
         if (host != null) {

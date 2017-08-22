@@ -1,7 +1,6 @@
 package com.alibaba.sdk.android.common.auth;
 
 
-import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.common.utils.DateUtil;
 
 import java.text.ParseException;
@@ -98,9 +97,7 @@ public class FederationToken {
             Date date = sdf.parse(expirationInGMTFormat);
             this.expiration = date.getTime() / 1000;
         } catch (ParseException e) {
-            if (OSSLog.isEnableLog()) {
-                e.printStackTrace();
-            }
+            e.printStackTrace();
             this.expiration = DateUtil.getFixedSkewedTimeMillis() / 1000 + 30;
         }
     }

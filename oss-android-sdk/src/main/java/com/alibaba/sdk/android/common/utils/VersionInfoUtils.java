@@ -7,24 +7,14 @@
 
 package com.alibaba.sdk.android.common.utils;
 
-import com.alibaba.sdk.android.oss.common.OSSConstants;
-import com.alibaba.sdk.android.oss.common.utils.OSSUtils;
+import android.text.TextUtils;
+
 
 public class VersionInfoUtils {
-    private static String version = null;
+
     private static String userAgent = null;
     
 
-    public static String getUserAgent() {
-        if (userAgent == null) {
-            userAgent = "aliyun-sdk-android/" + getVersion() + "/" + getDefaultUserAgent();
-        }
-        return userAgent;
-    }
-
-    public static String getVersion() {
-        return OSSConstants.SDK_VERSION;
-    }
 
     /**
      * 获取系统UA值
@@ -33,7 +23,7 @@ public class VersionInfoUtils {
      */
     public static String getDefaultUserAgent() {
         String result = System.getProperty("http.agent");
-        if (OSSUtils.isEmptyString(result)) {
+        if (TextUtils.isEmpty(result)) {
             result = "(" + System.getProperty("os.name") + "/" + System.getProperty("os.version") + "/" +
                     System.getProperty("os.arch") + ";" + System.getProperty("java.version") + ")";
         }

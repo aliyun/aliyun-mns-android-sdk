@@ -1,6 +1,7 @@
 package com.alibaba.sdk.android.common.auth;
 
-import com.alibaba.sdk.android.oss.common.OSSLog;
+import android.util.Log;
+
 import com.alibaba.sdk.android.common.utils.DateUtil;
 
 /**
@@ -21,7 +22,7 @@ public abstract class FederationCredentialProvider extends CredentialProvider {
                 || DateUtil.getFixedSkewedTimeMillis() / 1000 > cachedToken.getExpiration() - 15) {
 
             if (cachedToken != null) {
-                OSSLog.logD("token expired! current time: " + DateUtil.getFixedSkewedTimeMillis() / 1000 + " token expired: " + cachedToken.getExpiration());
+                Log.d("FederationToken","token expired! current time: " + DateUtil.getFixedSkewedTimeMillis() / 1000 + " token expired: " + cachedToken.getExpiration());
             }
             cachedToken = getFederationToken();
         }
